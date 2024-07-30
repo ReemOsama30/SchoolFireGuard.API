@@ -1,0 +1,6 @@
+@SchoolFireGuard.API_HostAddress = http://localhost:5147
+
+GET {{SchoolFireGuard.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
