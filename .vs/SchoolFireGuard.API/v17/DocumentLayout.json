@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\itimaterials\\freelance job\\SchoolFireGuard.API\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F79683DD-3753-4CCE-A021-ABD1FCA7077D}|SchoolFireGuard.API\\SchoolFireGuard.API.csproj|d:\\itimaterials\\freelance job\\schoolfireguard.api\\schoolfireguard.api\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F79683DD-3753-4CCE-A021-ABD1FCA7077D}|SchoolFireGuard.API\\SchoolFireGuard.API.csproj|solutionrelative:schoolfireguard.api\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F79683DD-3753-4CCE-A021-ABD1FCA7077D}|SchoolFireGuard.API\\SchoolFireGuard.API.csproj|d:\\itimaterials\\freelance job\\schoolfireguard.api\\schoolfireguard.api\\models\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F79683DD-3753-4CCE-A021-ABD1FCA7077D}|SchoolFireGuard.API\\SchoolFireGuard.API.csproj|solutionrelative:schoolfireguard.api\\models\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,6 +51,31 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "class.cs",
+              "DocumentMoniker": "D:\\itimaterials\\freelance job\\SchoolFireGuard.API\\SchoolFireGuard.API\\Models\\class.cs",
+              "RelativeDocumentMoniker": "SchoolFireGuard.API\\Models\\class.cs",
+              "ToolTip": "D:\\itimaterials\\freelance job\\SchoolFireGuard.API\\SchoolFireGuard.API\\Models\\class.cs",
+              "RelativeToolTip": "SchoolFireGuard.API\\Models\\class.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-30T18:57:07.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "teacher.cs",
+              "DocumentMoniker": "D:\\itimaterials\\freelance job\\SchoolFireGuard.API\\SchoolFireGuard.API\\Models\\teacher.cs",
+              "RelativeDocumentMoniker": "SchoolFireGuard.API\\Models\\teacher.cs",
+              "ToolTip": "D:\\itimaterials\\freelance job\\SchoolFireGuard.API\\SchoolFireGuard.API\\Models\\teacher.cs",
+              "RelativeToolTip": "SchoolFireGuard.API\\Models\\teacher.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-30T18:50:39.525Z",
+              "EditorCaption": ""
             }
           ]
         },
