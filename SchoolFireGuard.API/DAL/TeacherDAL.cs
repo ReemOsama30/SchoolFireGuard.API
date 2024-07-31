@@ -19,14 +19,15 @@ namespace SchoolFireGuard.API.DAL
         {
             using (var connection = new OleDbConnection(_connectionString))
             {
-                string query = "INSERT INTO Teachers (TeacherName, NoOfAbsentStudents, NoOfPresentStudents, isDone) VALUES (@Name, @PesentStudents, @AbsentStudents, @Done)";
+                string query = "INSERT INTO Teachers (TeacherName, ClassID, NoOfAbsentStudents, NoOfPresentStudents, isDone) VALUES (?, ?, ?, ?, ?)";
 
                 using (var command = new OleDbCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Name", teacher.Name);
-                    command.Parameters.AddWithValue("@PesentStudents", teacher.pesentStudents);
-                    command.Parameters.AddWithValue("@AbsentStudents", teacher.absentStudents);
-                    command.Parameters.AddWithValue("@Done", true);  
+                    command.Parameters.AddWithValue("?", teacher.Name);
+                    command.Parameters.AddWithValue("?", teacher.classID);
+                    command.Parameters.AddWithValue("?", teacher.pesentStudents);
+                    command.Parameters.AddWithValue("?", teacher.absentStudents);
+                    command.Parameters.AddWithValue("?", true);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -34,13 +35,14 @@ namespace SchoolFireGuard.API.DAL
             }
         }
 
-         public List<GetTeachersDTO> GetAllTeachers()
+
+        public List<GetTeachersDTO> GetAllTeachers()
         {
             var teachers = new List<GetTeachersDTO>();
 
             using (var connection = new OleDbConnection(_connectionString))
             {
-                string query = "SELECT TeacherName, NoOfPresentStudents, NoOfAbsentStudents, isDone FROM Teachers";
+                string query = "SELECT TeacherName, ClassID, NoOfPresentStudents, NoOfAbsentStudents, isDone FROM Teachers";
 
                 using (var command = new OleDbCommand(query, connection))
                 {
@@ -52,6 +54,7 @@ namespace SchoolFireGuard.API.DAL
                             var teacher = new GetTeachersDTO
                             {
                                 Name = reader.GetString(reader.GetOrdinal("TeacherName")),
+                                classID = reader.GetInt32(reader.GetOrdinal("ClassID")),
                                 PesentStudents = reader.GetInt32(reader.GetOrdinal("NoOfPresentStudents")),
                                 AbsentStudents = reader.GetInt32(reader.GetOrdinal("NoOfAbsentStudents")),
                                 Done = reader.GetBoolean(reader.GetOrdinal("isDone"))
@@ -64,6 +67,7 @@ namespace SchoolFireGuard.API.DAL
 
             return teachers;
         }
+
 
         public void RemoveAllTeachers()
         {

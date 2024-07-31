@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int classID {  get; set; }
         public int pesentStudents { get; set; }
         public int absentStudents { get; set; }
 
