@@ -1,8 +1,26 @@
 # Build artifacts
 .vs/
-
+.bin/
+.obj/
 /bin
 /obj
+
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+.vscode/
+*.sln.docstates
+*.csproj.user
+packages/
+*.log
+*.tmp
+*.publish.xml
+*.pubxml.user
+*.generated.cs
+
 
 # NuGet packages
 /packages/
