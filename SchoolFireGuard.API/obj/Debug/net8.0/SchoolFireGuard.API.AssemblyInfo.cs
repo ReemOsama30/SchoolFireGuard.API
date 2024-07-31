@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SchoolFireGuard.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe13a0bb02f47a49f6144d493a02a1d465394362")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b835c85c07256f642b6703dc705f8c7a3bb0e202")]
 [assembly: System.Reflection.AssemblyProductAttribute("SchoolFireGuard.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SchoolFireGuard.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

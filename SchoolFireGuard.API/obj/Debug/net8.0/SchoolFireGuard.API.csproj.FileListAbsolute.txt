@@ -31,3 +31,9 @@ D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\obj\Debug\
 D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\obj\Debug\net8.0\SchoolFireGuard.API.pdb
 D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\obj\Debug\net8.0\SchoolFireGuard.API.genruntimeconfig.cache
 D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\obj\Debug\net8.0\ref\SchoolFireGuard.API.dll
+D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\bin\Debug\net8.0\System.Data.OleDb.dll
+D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\bin\Debug\net8.0\System.Diagnostics.PerformanceCounter.dll
+D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Data.OleDb.dll
+D:\itimaterials\freelance job\SchoolFireGuard.API\SchoolFireGuard.API\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.PerformanceCounter.dll
