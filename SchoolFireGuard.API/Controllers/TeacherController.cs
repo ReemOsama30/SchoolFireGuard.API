@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using SchoolFireGuard.API.DAL;
 using SchoolFireGuard.API.DTOS.teacherDTOs;
+using SchoolFireGuard.API.responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,16 +21,26 @@ namespace SchoolFireGuard.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertTeacher([FromBody] addTeacherDTO teacher)
+        public async Task<ActionResult<GeneralResponse>> InsertTeacher([FromBody] addTeacherDTO teacher)
         {
             if (teacher == null)
             {
-                return BadRequest("Teacher is null.");
+                return new GeneralResponse
+                {
+                    message = "error in inserting teacher data..."
+                    ,
+                    status = 400
+                };
             }
 
             _teacherDAL.InsertTeacher(teacher);
-            return Ok("Teacher inserted successfully.");
+            return new GeneralResponse
+            {
+                message = "teacher inseted successfully",
+                status = 200
+            };
         }
+    
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetTeachersDTO>>> GetAllTeachers()

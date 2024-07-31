@@ -2,10 +2,10 @@
 {
     public class addTeacherDTO
     {
-        public string Name { get; set; }
-        public int classID { get; set; }
-        public int pesentStudents { get; set; }
-        public int absentStudents { get; set; }
+        public string teacherName { get; set; }
+        public int ClassID { get; set; }
+        public int NoOfPresentStudents { get; set; }
+        public int NoOfAbsentStudents { get; set; }
 
     }
 }

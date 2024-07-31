@@ -23,10 +23,10 @@ namespace SchoolFireGuard.API.DAL
 
                 using (var command = new OleDbCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("?", teacher.Name);
-                    command.Parameters.AddWithValue("?", teacher.classID);
-                    command.Parameters.AddWithValue("?", teacher.pesentStudents);
-                    command.Parameters.AddWithValue("?", teacher.absentStudents);
+                    command.Parameters.AddWithValue("?", teacher.teacherName);
+                    command.Parameters.AddWithValue("?", teacher.ClassID);
+                    command.Parameters.AddWithValue("?", teacher.NoOfPresentStudents);
+                    command.Parameters.AddWithValue("?", teacher.NoOfAbsentStudents);
                     command.Parameters.AddWithValue("?", true);
 
                     connection.Open();
@@ -53,11 +53,11 @@ namespace SchoolFireGuard.API.DAL
                         {
                             var teacher = new GetTeachersDTO
                             {
-                                Name = reader.GetString(reader.GetOrdinal("TeacherName")),
-                                classID = reader.GetInt32(reader.GetOrdinal("ClassID")),
-                                PesentStudents = reader.GetInt32(reader.GetOrdinal("NoOfPresentStudents")),
-                                AbsentStudents = reader.GetInt32(reader.GetOrdinal("NoOfAbsentStudents")),
-                                Done = reader.GetBoolean(reader.GetOrdinal("isDone"))
+                                Name = reader.IsDBNull(reader.GetOrdinal("TeacherName")) ? null : reader.GetString(reader.GetOrdinal("TeacherName")),
+                                classID = reader.IsDBNull(reader.GetOrdinal("ClassID")) ? default : reader.GetInt32(reader.GetOrdinal("ClassID")),
+                                PesentStudents = reader.IsDBNull(reader.GetOrdinal("NoOfPresentStudents")) ? default : reader.GetInt32(reader.GetOrdinal("NoOfPresentStudents")),
+                                AbsentStudents = reader.IsDBNull(reader.GetOrdinal("NoOfAbsentStudents")) ? default : reader.GetInt32(reader.GetOrdinal("NoOfAbsentStudents")),
+                                Done = reader.IsDBNull(reader.GetOrdinal("isDone")) ? default : reader.GetBoolean(reader.GetOrdinal("isDone"))
                             };
                             teachers.Add(teacher);
                         }
