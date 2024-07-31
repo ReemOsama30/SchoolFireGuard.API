@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolFireGuard.API.DAL;
 using SchoolFireGuard.API.DTOS.classDTOs;
+using SchoolFireGuard.API.responses;
 
 namespace SchoolFireGuard.API.Controllers
 {
@@ -17,7 +18,7 @@ namespace SchoolFireGuard.API.Controllers
 
             string connectionString = configuration.GetConnectionString("cs");
             _classDal = new ClassDAL(connectionString);
-         
+
         }
 
         [HttpGet]
@@ -41,6 +42,39 @@ namespace SchoolFireGuard.API.Controllers
             }
 
             return Ok(classNames);
+        }
+
+        [HttpGet("totalclasses")]
+        public async Task<ActionResult<GeneralResponse>> GetTotalClasses()
+        {
+
+            var totalClasses = _classDal.GetTotalClasses();
+            if (totalClasses >= 0)
+            {
+                return Ok(totalClasses); }
+            else
+            {
+                return new GeneralResponse { message = "invalid classes",
+                    status = 500 };
+            }
+
+        }
+
+
+        [HttpGet("totalstudents")]
+        public async Task<ActionResult<GeneralResponse>> GetTotalStudents()
+        {
+
+            var totalStudents = _classDal.GetTotalStudents();
+            if (totalStudents >= 0)
+            {
+                return Ok(totalStudents);
+            }
+            else
+            {
+
+                return new GeneralResponse { status = 500, message = "Internal server error" };
+            }
         }
     }
 }

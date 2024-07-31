@@ -19,7 +19,7 @@ namespace SchoolFireGuard.API.DAL
         {
             using (var connection = new OleDbConnection(_connectionString))
             {
-                string query = "INSERT INTO Teachers (TeacherName, ClassID, NoOfAbsentStudents, NoOfPresentStudents, isDone) VALUES (?, ?, ?, ?, ?)";
+                string query = "INSERT INTO Teachers (TeacherName, ClassID, NoOfPresentStudents,NoOfAbsentStudents, isDone) VALUES (?, ?, ?, ?, ?)";
 
                 using (var command = new OleDbCommand(query, connection))
                 {
@@ -42,7 +42,10 @@ namespace SchoolFireGuard.API.DAL
 
             using (var connection = new OleDbConnection(_connectionString))
             {
-                string query = "SELECT TeacherName, ClassID, NoOfPresentStudents, NoOfAbsentStudents, isDone FROM Teachers";
+                string query = @"
+            SELECT t.TeacherName, t.ClassID, t.NoOfPresentStudents, t.NoOfAbsentStudents, t.isDone, c.className
+            FROM Teachers t
+            INNER JOIN Classes c ON t.ClassID = c.ID";
 
                 using (var command = new OleDbCommand(query, connection))
                 {
@@ -55,8 +58,9 @@ namespace SchoolFireGuard.API.DAL
                             {
                                 Name = reader.IsDBNull(reader.GetOrdinal("TeacherName")) ? null : reader.GetString(reader.GetOrdinal("TeacherName")),
                                 classID = reader.IsDBNull(reader.GetOrdinal("ClassID")) ? default : reader.GetInt32(reader.GetOrdinal("ClassID")),
-                                PesentStudents = reader.IsDBNull(reader.GetOrdinal("NoOfPresentStudents")) ? default : reader.GetInt32(reader.GetOrdinal("NoOfPresentStudents")),
+                                ClassName = reader.IsDBNull(reader.GetOrdinal("className")) ? null : reader.GetString(reader.GetOrdinal("className")),
                                 AbsentStudents = reader.IsDBNull(reader.GetOrdinal("NoOfAbsentStudents")) ? default : reader.GetInt32(reader.GetOrdinal("NoOfAbsentStudents")),
+                                PesentStudents = reader.IsDBNull(reader.GetOrdinal("NoOfPresentStudents")) ? default : reader.GetInt32(reader.GetOrdinal("NoOfPresentStudents")),
                                 Done = reader.IsDBNull(reader.GetOrdinal("isDone")) ? default : reader.GetBoolean(reader.GetOrdinal("isDone"))
                             };
                             teachers.Add(teacher);
@@ -74,6 +78,7 @@ namespace SchoolFireGuard.API.DAL
             using (var connection = new OleDbConnection(_connectionString))
             {
                 string query = "DELETE FROM Teachers";
+
 
                 using (var command = new OleDbCommand(query, connection))
                 {

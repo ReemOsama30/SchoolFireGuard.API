@@ -75,5 +75,33 @@ namespace SchoolFireGuard.API.DAL
 
             return classNames;
         }
+        public int GetTotalClasses()
+        {
+            using (var connection = new OleDbConnection(_connectionString))
+            {
+                string query = "SELECT COUNT(*) AS TotalClasses FROM Classes";
+
+                using (var command = new OleDbCommand(query, connection))
+                {
+                    connection.Open();
+                    return (int)command.ExecuteScalar();
+                }
+            }
+        }
+
+        public int GetTotalStudents()
+        {
+            using (var connection = new OleDbConnection(_connectionString))
+            {
+                string query = "SELECT SUM(NoOfStudents) AS TotalStudents FROM Classes";
+
+                using (var command = new OleDbCommand(query, connection))
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                }
+            }
+        }
     }
 }

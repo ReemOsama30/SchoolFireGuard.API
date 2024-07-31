@@ -50,10 +50,11 @@ namespace SchoolFireGuard.API.Controllers
 
         [HttpDelete]
         [Route("remove-all")]
-        public IActionResult RemoveAllTeachers()
+        public ActionResult<GeneralResponse> RemoveAllTeachers()
         {
             _teacherDAL.RemoveAllTeachers();
-            return Ok("All teachers removed successfully.");
+            return new GeneralResponse { message = "All teachers removed successfully." ,
+            status=200};
         }
     }
 }
