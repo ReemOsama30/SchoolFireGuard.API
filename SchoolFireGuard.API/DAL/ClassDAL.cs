@@ -19,7 +19,8 @@ namespace SchoolFireGuard.API.DAL
 
             using (var connection = new OleDbConnection(_connectionString))
             {
-                string query = "SELECT className, NoOfStudents FROM Classes";
+              
+                string query = "SELECT className, NoOfStudents FROM classes WHERE IsSelected = No";
 
                 using (var command = new OleDbCommand(query, connection))
                 {
@@ -46,14 +47,15 @@ namespace SchoolFireGuard.API.DAL
 
 
 
+
         public List<GetClassNameDTO> GetAllClassNames()
         {
             var classNames = new List<GetClassNameDTO>();
 
             using (var connection = new OleDbConnection(_connectionString))
             {
-                // Query to select Id and className from the Classes table
-                string query = "SELECT Id, className FROM Classes";
+               
+                string query = "SELECT Id, className FROM classes WHERE isSelected = No";
 
                 using (var command = new OleDbCommand(query, connection))
                 {
@@ -75,6 +77,7 @@ namespace SchoolFireGuard.API.DAL
 
             return classNames;
         }
+
         public int GetTotalClasses()
         {
             using (var connection = new OleDbConnection(_connectionString))

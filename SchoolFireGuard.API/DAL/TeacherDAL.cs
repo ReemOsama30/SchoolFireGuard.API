@@ -14,23 +14,48 @@ namespace SchoolFireGuard.API.DAL
         {
             _connectionString = connectionString;
         }
-
         public void InsertTeacher(addTeacherDTO teacher)
         {
             using (var connection = new OleDbConnection(_connectionString))
             {
-                string query = "INSERT INTO Teachers (TeacherName, ClassID, NoOfPresentStudents,NoOfAbsentStudents, isDone) VALUES (?, ?, ?, ?, ?)";
-
-                using (var command = new OleDbCommand(query, connection))
+              
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
                 {
-                    command.Parameters.AddWithValue("?", teacher.teacherName);
-                    command.Parameters.AddWithValue("?", teacher.ClassID);
-                    command.Parameters.AddWithValue("?", teacher.NoOfPresentStudents);
-                    command.Parameters.AddWithValue("?", teacher.NoOfAbsentStudents);
-                    command.Parameters.AddWithValue("?", true);
+                    try
+                    {
+                        // Insert the teacher
+                        string insertQuery = "INSERT INTO Teachers (TeacherName, ClassID, NoOfPresentStudents, NoOfAbsentStudents, isDone) VALUES (?, ?, ?, ?, ?)";
+                        using (var insertCommand = new OleDbCommand(insertQuery, connection, transaction))
+                        {
+                            insertCommand.Parameters.AddWithValue("?", teacher.teacherName);
+                            insertCommand.Parameters.AddWithValue("?", teacher.ClassID);
+                            insertCommand.Parameters.AddWithValue("?", teacher.NoOfPresentStudents);
+                            insertCommand.Parameters.AddWithValue("?", teacher.NoOfAbsentStudents);
+                            insertCommand.Parameters.AddWithValue("?", true);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                            insertCommand.ExecuteNonQuery();
+                        }
+
+                        // Update the isSelected field in the Classes table
+                        string updateQuery = "UPDATE classes SET isSelected = ? WHERE Id = ?";
+                        using (var updateCommand = new OleDbCommand(updateQuery, connection, transaction))
+                        {
+                            updateCommand.Parameters.AddWithValue("?", true);
+                            updateCommand.Parameters.AddWithValue("?", teacher.ClassID);
+
+                            updateCommand.ExecuteNonQuery();
+                        }
+
+                        // Commit the transaction
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        // Rollback the transaction if something goes wrong
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
@@ -77,15 +102,40 @@ namespace SchoolFireGuard.API.DAL
         {
             using (var connection = new OleDbConnection(_connectionString))
             {
-                string query = "DELETE FROM Teachers";
-
-
-                using (var command = new OleDbCommand(query, connection))
+                
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
                 {
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                       
+                        string deleteQuery = "DELETE FROM Teachers";
+                        using (var deleteCommand = new OleDbCommand(deleteQuery, connection, transaction))
+                        {
+                            deleteCommand.ExecuteNonQuery();
+                        }
+
+                  
+                        string updateQuery = "UPDATE classes SET isSelected = ?";
+                        using (var updateCommand = new OleDbCommand(updateQuery, connection, transaction))
+                        {
+                            updateCommand.Parameters.AddWithValue("?", false);
+
+                            updateCommand.ExecuteNonQuery();
+                        }
+
+                        
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                       
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
+
     }
 }
