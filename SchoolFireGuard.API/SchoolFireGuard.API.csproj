@@ -13,7 +13,13 @@
     <None Remove="NewFolder\**" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<None Update="Database\schoolFireGuard.accdb">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
   </ItemGroup>

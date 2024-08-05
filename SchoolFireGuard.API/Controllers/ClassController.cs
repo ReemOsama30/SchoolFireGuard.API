@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolFireGuard.API.DAL;
 using SchoolFireGuard.API.DTOS.classDTOs;
 using SchoolFireGuard.API.responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SchoolFireGuard.API.Controllers
 {
@@ -12,13 +14,9 @@ namespace SchoolFireGuard.API.Controllers
     {
         private readonly ClassDAL _classDal;
 
-        public ClassController(IConfiguration configuration)
+        public ClassController(ClassDAL classDal)
         {
-
-
-            string connectionString = configuration.GetConnectionString("cs");
-            _classDal = new ClassDAL(connectionString);
-
+            _classDal = classDal;
         }
 
         [HttpGet]
@@ -32,6 +30,7 @@ namespace SchoolFireGuard.API.Controllers
 
             return Ok(classes);
         }
+
         [HttpGet("names")]
         public ActionResult<List<GetClassNameDTO>> GetClassNames()
         {
@@ -47,24 +46,20 @@ namespace SchoolFireGuard.API.Controllers
         [HttpGet("totalclasses")]
         public async Task<ActionResult<GeneralResponse>> GetTotalClasses()
         {
-
             var totalClasses = _classDal.GetTotalClasses();
             if (totalClasses >= 0)
             {
-                return Ok(totalClasses); }
+                return Ok(totalClasses);
+            }
             else
             {
-                return new GeneralResponse { message = "invalid classes",
-                    status = 500 };
+                return new GeneralResponse { message = "invalid classes", status = 500 };
             }
-
         }
-
 
         [HttpGet("totalstudents")]
         public async Task<ActionResult<GeneralResponse>> GetTotalStudents()
         {
-
             var totalStudents = _classDal.GetTotalStudents();
             if (totalStudents >= 0)
             {
@@ -72,7 +67,6 @@ namespace SchoolFireGuard.API.Controllers
             }
             else
             {
-
                 return new GeneralResponse { status = 500, message = "Internal server error" };
             }
         }

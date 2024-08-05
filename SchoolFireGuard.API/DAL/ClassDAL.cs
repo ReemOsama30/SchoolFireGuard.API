@@ -1,5 +1,7 @@
-﻿using SchoolFireGuard.API.DTOS.classDTOs;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.OleDb;
+using SchoolFireGuard.API.DTOS.classDTOs;
 
 namespace SchoolFireGuard.API.DAL
 {
@@ -9,7 +11,6 @@ namespace SchoolFireGuard.API.DAL
 
         public ClassDAL(string connectionString)
         {
-
             _connectionString = connectionString;
         }
 
@@ -17,62 +18,73 @@ namespace SchoolFireGuard.API.DAL
         {
             var classes = new List<GetClassDTO>();
 
-            using (var connection = new OleDbConnection(_connectionString))
+            try
             {
-              
-                string query = "SELECT className, NoOfStudents FROM classes WHERE IsSelected = No";
-
-                using (var command = new OleDbCommand(query, connection))
+                using (var connection = new OleDbConnection(_connectionString))
                 {
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
+                    string query = "SELECT className, NoOfStudents FROM classes WHERE IsSelected = No";
+
+                    using (var command = new OleDbCommand(query, connection))
                     {
-                        while (reader.Read())
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
                         {
-                            var classDto = new GetClassDTO
+                            while (reader.Read())
                             {
-                                className = reader.GetString(reader.GetOrdinal("className")),
-                                numberOfStudents = reader.IsDBNull(reader.GetOrdinal("NoOfStudents"))
-                                    ? 0
-                                    : reader.GetInt32(reader.GetOrdinal("NoOfStudents"))
-                            };
-                            classes.Add(classDto);
+                                var classDto = new GetClassDTO
+                                {
+                                    className = reader.GetString(reader.GetOrdinal("className")),
+                                    numberOfStudents = reader.IsDBNull(reader.GetOrdinal("NoOfStudents"))
+                                        ? 0
+                                        : reader.GetInt32(reader.GetOrdinal("NoOfStudents"))
+                                };
+                                classes.Add(classDto);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (using a logging framework or system)
+                throw new ApplicationException("An error occurred while getting all classes.", ex);
             }
 
             return classes;
         }
 
-
-
-
         public List<GetClassNameDTO> GetAllClassNames()
         {
             var classNames = new List<GetClassNameDTO>();
 
-            using (var connection = new OleDbConnection(_connectionString))
+            try
             {
-               
-                string query = "SELECT Id, className FROM classes WHERE isSelected = No";
-
-                using (var command = new OleDbCommand(query, connection))
+                using (var connection = new OleDbConnection(_connectionString))
                 {
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
+                    string query = "SELECT Id, className FROM classes WHERE IsSelected = No";
+
+                    using (var command = new OleDbCommand(query, connection))
                     {
-                        while (reader.Read())
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
                         {
-                            var classDto = new GetClassNameDTO
+                            while (reader.Read())
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                className = reader.GetString(reader.GetOrdinal("className"))
-                            };
-                            classNames.Add(classDto);
+                                var classDto = new GetClassNameDTO
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    className = reader.GetString(reader.GetOrdinal("className"))
+                                };
+                                classNames.Add(classDto);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (using a logging framework or system)
+                throw new ApplicationException("An error occurred while getting all class names.", ex);
             }
 
             return classNames;
@@ -80,30 +92,46 @@ namespace SchoolFireGuard.API.DAL
 
         public int GetTotalClasses()
         {
-            using (var connection = new OleDbConnection(_connectionString))
+            try
             {
-                string query = "SELECT COUNT(*) AS TotalClasses FROM Classes";
-
-                using (var command = new OleDbCommand(query, connection))
+                using (var connection = new OleDbConnection(_connectionString))
                 {
-                    connection.Open();
-                    return (int)command.ExecuteScalar();
+                    string query = "SELECT COUNT(*) AS TotalClasses FROM Classes";
+
+                    using (var command = new OleDbCommand(query, connection))
+                    {
+                        connection.Open();
+                        return (int)command.ExecuteScalar();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (using a logging framework or system)
+                throw new ApplicationException("An error occurred while getting the total number of classes.", ex);
             }
         }
 
         public int GetTotalStudents()
         {
-            using (var connection = new OleDbConnection(_connectionString))
+            try
             {
-                string query = "SELECT SUM(NoOfStudents) AS TotalStudents FROM Classes";
-
-                using (var command = new OleDbCommand(query, connection))
+                using (var connection = new OleDbConnection(_connectionString))
                 {
-                    connection.Open();
-                    object result = command.ExecuteScalar();
-                    return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                    string query = "SELECT SUM(NoOfStudents) AS TotalStudents FROM Classes";
+
+                    using (var command = new OleDbCommand(query, connection))
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (using a logging framework or system)
+                throw new ApplicationException("An error occurred while getting the total number of students.", ex);
             }
         }
     }
